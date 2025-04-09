@@ -21,6 +21,7 @@ from pygame_gui.elements.ui_text_entry_box import UITextEntryBox
 from pygame_gui.elements.ui_auto_resizing_container import UIAutoResizingContainer
 from pygame_gui.elements.ui_tab_container import UITabContainer
 from pygame_gui.elements.ui_form import UIForm, InputField
+from pygame_gui.elements.ui_timed_text import UITimedText
 
 
 __all__ = ['UIImage',
@@ -47,5 +48,6 @@ __all__ = ['UIImage',
            'UIAutoResizingContainer',
            'UITabContainer',
            'InputField',
-           'UIForm'
+           'UIForm',
+           'UITimedText'
            ]
