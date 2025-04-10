@@ -2,6 +2,7 @@ import warnings
 import math
 import html
 import re
+import time
 
 from typing import Union, Tuple, Dict, Optional, Any
 
@@ -107,6 +108,7 @@ class UITextBox(UIElement, IUITextOwnerInterface):
                  object_id: Optional[Union[ObjectID, str]] = None,
                  anchors: Optional[Dict[str, Union[str, UIElement]]] = None,
                  visible: int = 1,
+                 timer_seconds: float = None,
                  *,
                  pre_parsing_enabled: bool = True,
                  text_kwargs: Optional[Dict[str, str]] = None,
@@ -205,6 +207,8 @@ class UITextBox(UIElement, IUITextOwnerInterface):
         self.has_edit_cursor = False
 
         self.rebuild_from_changed_theme_data()
+        self.timer_seconds = timer_seconds
+        self.time_elapsed = 0
 
     @property
     def select_range(self):
@@ -449,6 +453,11 @@ class UITextBox(UIElement, IUITextOwnerInterface):
         super().update(time_delta)
         if not self.alive():
             return
+
+        self.time_elapsed += time_delta
+        if self.timer_seconds is not None:
+            if self.time_elapsed >= self.timer_seconds:
+                self.kill()
 
         if self.double_click_timer < self.ui_manager.get_double_click_time():
             self.double_click_timer += time_delta
