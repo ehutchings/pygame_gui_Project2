@@ -7,6 +7,7 @@ from pygame_gui.core import ObjectID
 from pygame_gui.core.gui_type_hints import Coordinate, RectLike
 from pygame_gui.core.interfaces import IContainerLikeInterface
 from pygame_gui.core import UIElement
+from pygame_gui.core.interfaces import IContainerLikeInterface, IUIManagerInterface
 
 from pygame_gui._constants import UITextEffectType, TEXT_EFFECT_TYPING_APPEAR
 from pygame_gui._constants import TEXT_EFFECT_FADE_IN, TEXT_EFFECT_FADE_OUT
@@ -15,6 +16,7 @@ from pygame_gui._constants import TEXT_EFFECT_FADE_IN, TEXT_EFFECT_FADE_OUT
 class UITimedText(UILabel):
     def __init__(self, relative_rect: Union[RectLike, Coordinate],
                  text: str,
+                 manager: Optional[IUIManagerInterface] = None,
                  pop_up_time: float = 1.0,
                  delay: float = 1.0,
                  container: Optional[IContainerLikeInterface] = None,
@@ -26,7 +28,7 @@ class UITimedText(UILabel):
         rel_rect = (relative_rect if len(relative_rect) == 4
                     else pygame.Rect(relative_rect, (-1, -1)))
 
-        super().__init__(rel_rect, text, container,
+        super().__init__(rel_rect, text, manager, container,
                          anchors=anchors,
                          visible=visible,
                          parent_element=parent_element,
