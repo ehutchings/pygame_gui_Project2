@@ -2,7 +2,6 @@ import warnings
 import math
 import html
 import re
-import time
 
 from typing import Union, Tuple, Dict, Optional, Any
 
