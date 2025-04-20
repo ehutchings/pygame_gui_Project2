@@ -77,6 +77,7 @@ class UITextEntryLine(UIElement):
                  object_id: Optional[Union[ObjectID, str]] = None,
                  anchors: Optional[Dict[str, Union[str, UIElement]]] = None,
                  visible: int = 1,
+                 spacing: int = None,
                  *,
                  initial_text: Optional[str] = None,
                  placeholder_text: Optional[str] = None):
@@ -88,9 +89,16 @@ class UITextEntryLine(UIElement):
                          object_id=object_id,
                          element_id=['text_entry_line'])
 
+        if spacing is not None:
+            if spacing < 0:
+                raise ValueError("'spacing' parameter must be a non-negative whole number")
+
         self.text = ""
         if initial_text is not None:
-            self.text = translate(initial_text)
+            if spacing != None:
+                self.text = f"{translate(initial_text):>{spacing}}"
+
+
         self.is_text_hidden = False
         self.hidden_text_char = '●'
         self.placeholder_text = ""
@@ -151,6 +159,7 @@ class UITextEntryLine(UIElement):
         self.paste_text_enabled = True
 
         self.rebuild_from_changed_theme_data()
+
 
     @property
     def select_range(self):
