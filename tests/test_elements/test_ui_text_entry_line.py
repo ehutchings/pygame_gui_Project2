@@ -1193,5 +1193,21 @@ class TestUITextEntryLine:
         assert text_entry.get_text() == "Some basic text"
 
 
+    def test_spacing(self, _init_pygame, default_ui_manager, _display_surface_return_none):
+        text_entry = UITextEntryLine(relative_rect=pygame.Rect(100, 100, 200, 30),
+                                     manager=default_ui_manager,
+                                     initial_text="Bob",
+                                     spacing=10)
+        expected = f"{"Bob":>10}"
+        assert text_entry.get_text() == expected
+
+        with pytest.raises(ValueError):
+            text_entry = UITextEntryLine(relative_rect=pygame.Rect(100, 100, 200, 30),
+                                        manager=default_ui_manager,
+                                        initial_text="Bob",
+                                        spacing=-5)
+
+
+
 if __name__ == '__main__':
     pytest.console_main()
