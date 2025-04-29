@@ -9,7 +9,7 @@ from pygame_gui.core.gui_type_hints import Coordinate, RectLike
 from pygame_gui.elements import UIButton
 
 
-class SelectionButtons(UIElement):
+class UISelectionButtons(UIElement):
 
     def __init__(self,
                  relative_rect: RectLike,
@@ -46,4 +46,9 @@ class SelectionButtons(UIElement):
         super().update(time_delta)
         for button in self.buttons:
             if button.pressed_event is True:
+                if self.selected_button is not None:
+                    self.selected_button.colours["normal_bg"] = pygame.color.Color(255, 255, 255)
+                    self.selected_button.rebuild()
                 self.selected_button = button
+                self.selected_button.colours["normal_bg"] = pygame.color.Color(0, 0, 0)
+                self.selected_button.rebuild()
