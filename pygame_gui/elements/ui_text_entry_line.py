@@ -95,6 +95,7 @@ class UITextEntryLine(UIElement):
 
         self.text = ""
         if initial_text is not None:
+            self.text = translate(initial_text)
             if spacing != None:
                 self.text = f"{translate(initial_text):>{spacing}}"
 
