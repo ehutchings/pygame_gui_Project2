@@ -62,6 +62,14 @@ class TestUIButton:
                           manager=manager)
         assert button.normal_image is not None and button.image is not None
 
+    def test_create_with_image(self, _init_pygame, default_ui_manager,
+                               _display_surface_return_none):
+        image_button = UIButton(relative_rect=pygame.Rect(100, 100, 150, 30),
+                                text="Image",
+                                manager=default_ui_manager,
+                                img_path=os.path.join("tests", "data", "images", "test_emoji.png"))
+        assert image_button.display_img is not None
+
     def test_kill(self, _init_pygame, default_ui_manager,
                   _display_surface_return_none):
         button = UIButton(relative_rect=pygame.Rect(100, 100, 150, 30),

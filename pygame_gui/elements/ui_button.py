@@ -4,6 +4,7 @@ import os
 import pygame
 
 import pygame_gui.elements
+from pygame_gui.elements import UIImage
 from pygame_gui.core.utility import translate
 from pygame_gui._constants import UI_BUTTON_ON_HOVERED, UI_BUTTON_ON_UNHOVERED, OldType
 from pygame_gui._constants import UI_BUTTON_PRESSED, UI_BUTTON_DOUBLE_CLICKED, UI_BUTTON_START_PRESS
@@ -62,7 +63,8 @@ class UIButton(UIElement):
                  allow_double_clicks: bool = False,
                  generate_click_events_from: Iterable[int] = frozenset([pygame.BUTTON_LEFT]),
                  visible: int = 1,
-                 display_img: str = None,
+                 img_path: str = None,
+                 display_img: UIImage = None,
                  *,
                  command: Union[Callable, Dict[int, Callable]] = None,
                  tool_tip_object_id: Optional[ObjectID] = None,
@@ -89,10 +91,10 @@ class UIButton(UIElement):
             self.text_kwargs = text_kwargs
 
         # If image is included on button it will overwrite any text
-        if display_img is not None:
-            loaded_image = pygame.image.load(os.path.join("dog.jpg"))
-            pygame_gui.elements.UIImage(relative_rect=pygame.Rect(self.relative_rect), image_surface=loaded_image)
-
+        if img_path is not None:
+            surface = pygame.image.load(os.path.join(img_path))
+            self.display_img = pygame_gui.elements.UIImage(relative_rect=pygame.Rect(self.relative_rect),
+                                                           image_surface=surface)
 
         self.dynamic_dimensions_orig_top_left = rel_rect.topleft
         # support for an optional 'tool tip' element attached to this button
